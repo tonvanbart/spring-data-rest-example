@@ -10,3 +10,7 @@ add-spock:
 list:
 	curl localhost:8080/people
 
+.PHONY: database
+database:
+	docker run -p 3306:3306 --name docker-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=hobbitdb -e MYSQL_USER=sa -e MYSQL_PASSWORD=password mysql/mysql-server:latest
+
