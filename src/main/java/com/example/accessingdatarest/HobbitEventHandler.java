@@ -21,33 +21,33 @@ public class HobbitEventHandler {
     @HandleAfterSave
     public void handleAfterSave(Person person) {
         log.info("handleAfterSave({})", person.getFirstName());
+    }
+
+    @HandleBeforeSave
+    public void handleBeforeSave(Person person) {
+        log.info("handleBeforeSave({})", person);
         if (person.getFirstName().equalsIgnoreCase("Spock")) {
             log.warn("Rejecting a person called Spock");
             Errors errors = initErrors(person);
             errors.rejectValue("firstName", "errmsg.spock");
             throw new RepositoryConstraintViolationException(errors);
         }
-    }
-
-    @HandleBeforeSave
-    public void handleBeforeSave(Person person) {
-        log.info("handleBeforeSave({})", person.getFirstName());
     }
 
     @HandleAfterCreate
     public void handleAfterCreate(Person person) {
         log.info("handleAfterCreate({})", person.getFirstName());
+    }
+
+    @HandleBeforeCreate
+    public void handleBeforeCreate(Person person) {
+        log.info("Before Create: " + person.getFirstName());
         if (person.getFirstName().equalsIgnoreCase("Spock")) {
             log.warn("Rejecting a person called Spock");
             Errors errors = initErrors(person);
             errors.rejectValue("firstName", "errmsg.spock");
             throw new RepositoryConstraintViolationException(errors);
         }
-    }
-
-    @HandleBeforeCreate
-    public void handleBeforeCreate(Person person) {
-        log.info("Before Create: " + person.getFirstName());
 
     }
 
